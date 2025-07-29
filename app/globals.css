@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 @import "tailwindcss";
+
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -113,8 +116,34 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.home-parent {
+  min-height: 100vh;
+  background-image: linear-gradient(to right, #434343 0%, black 100%);
+}
+.logo-text {
+  font-weight: 900;
+}
+.cl-cardBox {
+  box-shadow: none;
+}
+
+.auth-parent input {
+  height: 45px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+.cl-formButtonPrimary {
+  height: 45px !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  background-color: #000;
 }
