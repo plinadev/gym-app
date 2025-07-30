@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import { SignIn, SignUp } from "@clerk/nextjs";
 import { useSearchParams } from "next/navigation";
+import PlansList from "./_components/plans-list";
 
 function Homepage() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -36,12 +37,27 @@ function Homepage() {
           and equipment.
         </p>
 
-        <Button variant={"outline"}>Explore Plans</Button>
+        <Button
+          variant={"outline"}
+          onClick={() => {
+            const plansDiv = document.getElementById("plans");
+            plansDiv?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Explore Plans
+        </Button>
         <MoveDown
           size={20}
           color="gray"
           className="animate-bounce cursor-pointer mt-20"
         />
+      </div>
+
+      <div id="plans">
+        <h1 className="text-3xl font-bold text-center text-white mt-20">
+          Our Plans
+        </h1>
+        <PlansList />
       </div>
       <Sheet open={openSidebar} onOpenChange={setOpenSidebar}>
         <SheetContent className="md:min-w-[500px] flex items-center justify-center min-h-screen auth-parent">
