@@ -8,6 +8,7 @@ import {
 import { IUser } from "@/interfaces";
 import { SignOutButton } from "@clerk/nextjs";
 import {
+  FolderKanban,
   Heart,
   Home,
   List,
@@ -53,6 +54,11 @@ function MenuSidebar({ user, openSidebar, setOpenSidebar }: IMenuSidebarProps) {
       name: "Users",
       icon: <Users size={iconSize} />,
       route: "/account/admin/users",
+    },
+    {
+      name: "Plans",
+      icon: <FolderKanban size={iconSize} />,
+      route: "/account/admin/plans",
     },
     {
       name: "Subscriptions",
