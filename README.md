@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gym App 
+
+A full-featured fitness web application built with modern web technologies. Users can register, log in, and manage their fitness journey. Includes authentication, subscriptions, form handling, and admin access.
+
+## Tech Stack
+
+- **Next.js 15**
+- **React 19**
+- **Tailwind CSS 4**
+- **Clerk** – Authentication
+- **Supabase** – Database and storage
+- **Stripe** – Payment processing
+- **Zod** – Schema validation
+- **React Hook Form** – Form state management
+- **Shadcn UI** – UI primitives
+- **Zustand** – Global state management
+- **Lucide React** – Icon set
+- **Day.js** – Date utilities
+
+## Functionality
+
+### Users
+- Register and sign in using Clerk authentication
+- View available subscription plans
+- Purchase and manage their subscriptions via Stripe
+- Access user-specific content
+
+### Admins
+- Create, edit, and delete subscription plans
+- Manage registered users and Stripe customers
+- View user statistics in a dedicated admin dashboard
+
+  
+## Environment Variables
+
+To run the app, create a `.env.local` file in the project root with the following:
+
+```env
+# Clerk (Auth)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/?form=sign-up
+
+# Supabase (DB/Storage)
+SUPABASE_PROJECT_URL=
+SUPABASE_API_KEY=
+
+# Stripe (Payments)
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- Stripe & Clerk accounts
+- Supabase project
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/plinadev/gym-app.git
+   cd gym-app
+   ```
 
-## Learn More
+2. Install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Add your `.env.local` file with the required credentials.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Start the development server:
 
-## Deploy on Vercel
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Visit [http://localhost:3000](http://localhost:3000) to start using the app.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
