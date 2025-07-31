@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import supabase from "@/config/supabase-config";
+import { ISubscription } from "@/interfaces";
+import dayjs from "dayjs";
 
 export const createNewSubscription = async (payload: any) => {
   try {
@@ -13,6 +16,73 @@ export const createNewSubscription = async (payload: any) => {
     return {
       success: true,
       data,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};
+
+export const getCurrentUserActiveSubscription = async (user_id: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("subscriptions")
+      .select("*, plans(*)")
+      .eq("user_id", user_id)
+      .order("created_at", { ascending: false })
+      .limit(1);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    if (data.length === 0) {
+      return {
+        success: false,
+        data: null,
+      };
+    }
+    const sub = data[0];
+
+    if (dayjs(sub.end_date, "YYYY-MM-DD").isBefore(dayjs())) {
+      return {
+        success: false,
+        data: null,
+      };
+    }
+    sub.plan = sub.plans;
+    return {
+      success: true,
+      data: sub,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};
+
+export const getAllUserSubscriptions = async (user_id: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("subscriptions")
+      .select("*, plans(*)")
+      .eq("user_id", user_id)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+    const formatedData = data.map((item: any) => ({
+      plan: item.plans,
+      ...item,
+    }));
+    return {
+      success: true,
+      data: formatedData,
     };
   } catch (error: any) {
     return {
