@@ -2,7 +2,6 @@
 "use server";
 
 import supabase from "@/config/supabase-config";
-import { ISubscription } from "@/interfaces";
 import dayjs from "dayjs";
 
 export const createNewSubscription = async (payload: any) => {
@@ -13,6 +12,11 @@ export const createNewSubscription = async (payload: any) => {
     if (error) {
       throw new Error(error.message);
     }
+
+    await supabase.from("user_profiles").upsert({
+      id: payload.user_id,
+      is_customer: true,
+    });
     return {
       success: true,
       data,
@@ -78,6 +82,32 @@ export const getAllUserSubscriptions = async (user_id: string) => {
     }
     const formatedData = data.map((item: any) => ({
       plan: item.plans,
+      ...item,
+    }));
+    return {
+      success: true,
+      data: formatedData,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+};
+
+export const getAllSubscriptions = async () => {
+  try {
+    const { data, error } = await supabase
+      .from("subscriptions")
+      .select("*, plans(*), user_profiles(name)");
+
+    if (error) {
+      throw new Error(error.message);
+    }
+    const formatedData = data.map((item: any) => ({
+      plan: item.plans,
+      user: item.user_profiles,
       ...item,
     }));
     return {

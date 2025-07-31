@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { getAllUserSubscriptions } from "@/actions/subscriptions";
+import { getAllSubscriptions } from "@/actions/subscriptions";
 import PageTitle from "@/components/ui/page-title";
-import usersGlobalStore, {
-  IUsersGlobalStore,
-} from "@/global-store/users-store";
+
 import { ISubscription } from "@/interfaces";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -20,15 +18,14 @@ import {
 import dayjs from "dayjs";
 import Spinner from "@/components/ui/spinner";
 
-function SubscriptionsPage() {
+function AdminSubscriptionsPage() {
   const [subscriptions, setSubscriptions] = useState<ISubscription[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const { user } = usersGlobalStore() as IUsersGlobalStore;
 
   const getData = async () => {
     try {
       setLoading(true);
-      const response: any = await getAllUserSubscriptions(user?.id!);
+      const response: any = await getAllSubscriptions();
       if (!response.success) {
         throw new Error(response.message);
       }
@@ -46,6 +43,7 @@ function SubscriptionsPage() {
   }, []);
 
   const columns = [
+    "Customer",
     "Subscription ID",
     "Purchase Date",
     "Start Date",
@@ -56,11 +54,11 @@ function SubscriptionsPage() {
   ];
   return (
     <div>
-      <PageTitle title="My Subscriptions" />
+      <PageTitle title="All Subscriptions" />
       {loading && <Spinner parentHeight={150} />}
       {!loading && subscriptions.length === 0 && (
         <p className="text-md text-stone-600">
-          You do not have any subscriptions at the moment.
+          There are no purchased subscriptions at the moment.
         </p>
       )}
       {subscriptions.length > 0 && !loading && (
@@ -77,6 +75,8 @@ function SubscriptionsPage() {
           <TableBody>
             {subscriptions.map((subscription) => (
               <TableRow key={subscription.id}>
+                <TableCell>{subscription.user.name}</TableCell>
+
                 <TableCell>{subscription.id}</TableCell>
                 <TableCell>
                   {dayjs(subscription.created_at).format("MMM DD, YYYY")}
@@ -99,4 +99,4 @@ function SubscriptionsPage() {
   );
 }
 
-export default SubscriptionsPage;
+export default AdminSubscriptionsPage;

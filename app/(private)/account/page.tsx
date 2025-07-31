@@ -34,35 +34,37 @@ function AccountPage() {
           </Button>
         </div>
       )}
-      <div className="mt-7 grid grid-cols-2">
-        <div className="col-span-1 p-5 border rounded border--stone-500 flex flex-col gap-2">
-          <h1 className="text-md font-semibold text-stone-700">
-            Your Current Subscription
-          </h1>
-          <hr />
-          {renderProperties("Subscription ID", currentSubscription?.id)}
+      {currentSubscription && (
+        <div className="mt-7 grid grid-cols-2">
+          <div className="col-span-1 p-5 border rounded border--stone-500 flex flex-col gap-2">
+            <h1 className="text-md font-semibold text-stone-700">
+              Your Current Subscription
+            </h1>
+            <hr />
+            {renderProperties("Subscription ID", currentSubscription?.id)}
 
-          {renderProperties("Plan", currentSubscription?.plan?.name)}
-          {renderProperties(
-            "Purchased On",
-            dayjs(currentSubscription?.created_at).format("MMM DD, YYYY")
-          )}
-          {renderProperties(
-            "Start Date",
-            dayjs(currentSubscription?.start_date).format("MMM DD, YYYY")
-          )}
-          {renderProperties(
-            "End Date",
-            dayjs(currentSubscription?.end_date).format("MMM DD, YYYY")
-          )}
-          {renderProperties(
-            "Total Duration",
-            currentSubscription?.total_duration + " days"
-          )}
-          {renderProperties("Amount", currentSubscription?.amount)}
-          {renderProperties("Payment Id", currentSubscription?.payment_id)}
+            {renderProperties("Plan", currentSubscription?.plan?.name)}
+            {renderProperties(
+              "Purchased On",
+              dayjs(currentSubscription?.created_at).format("MMM DD, YYYY")
+            )}
+            {renderProperties(
+              "Start Date",
+              dayjs(currentSubscription?.start_date).format("MMM DD, YYYY")
+            )}
+            {renderProperties(
+              "End Date",
+              dayjs(currentSubscription?.end_date).format("MMM DD, YYYY")
+            )}
+            {renderProperties(
+              "Total Duration",
+              currentSubscription?.total_duration + " days"
+            )}
+            {renderProperties("Amount", currentSubscription?.amount)}
+            {renderProperties("Payment Id", currentSubscription?.payment_id)}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
